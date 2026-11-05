@@ -1,0 +1,11 @@
+:root {
+  color-scheme: light;
+  --color-background: #f8f7f2;
+  --color-text: #23372c;
+  --color-muted: #61695d;
+  --color-accent: #215d45;
+  --color-border: #e1e3d9;
+  --color-focus: #94611e;
+  --font-body: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+}

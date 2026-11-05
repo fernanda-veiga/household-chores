@@ -1,0 +1,30 @@
+name: Frontend checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Use the pinned npm version in this disposable runner
+        run: npm install --global npm@9.2.0
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failure-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

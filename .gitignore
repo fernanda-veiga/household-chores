@@ -1,0 +1,33 @@
+# Private local configuration (only the example is versioned)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+.codex/
+.agents/
+# Dependencies / generated files
+node_modules/
+dist/
+coverage/
+.vite/
+.vitest/
+*.tsbuildinfo
+*.log
+# Test traces and saved authentication states
+test-results/
+playwright-report/
+playwright/.auth/
+# Future local infrastructure and household content
+supabase/.temp/
+supabase/.branches/
+.supabase/
+local-data/
+uploads/
+backups/
+tmp/
+*.dump
+# Machine-specific editor state
+.DS_Store
+.idea/
