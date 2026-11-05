@@ -86,15 +86,17 @@ which features are coming next rather than pretending sample data is saved.
 
 ## Git workflow
 
-The new local repository uses `main`. Its project-local author is
+The public repository is [fernanda-veiga/household-chores](https://github.com/fernanda-veiga/household-chores).
+The local repository uses `main`, with `origin` configured to its GitHub HTTPS URL.
+Its project-local author is
 `fernanda-veiga <fernandarochaveiga@gmail.com>`; global Git identity is unchanged.
-There is no `origin`, initial commit, or push yet. A repository URL is needed to
-configure the remote. Do not place credentials in that URL.
+GitHub CLI supplies HTTPS authentication through this project's credential helper;
+credentials are not embedded in the remote URL or source files.
 
 For future work, use a feature branch such as `feat/dev-51-local-store`, run the
 relevant checks, review the changed files, and make a focused commit. Push a
-reviewed branch only when a remote is configured and pushing is authorized.
-Require frontend checks before merging a pull request. Avoid committing private
+reviewed branch when pushing is authorized. Frontend checks run on GitHub pushes
+and pull requests; inspect their actual status before merging. Avoid committing private
 household backups, `.env.local`, auth state, or generated test/build artifacts.
 
 See [DEV50_FRONTEND_SETUP.md](DEV50_FRONTEND_SETUP.md) for implementation decisions,

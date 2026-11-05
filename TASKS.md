@@ -97,7 +97,7 @@ Completed coverage:
 
 **Status:** Done — implementation (2026-11-05) · **Priority:** P0 · **Owner:** Frontend · **Dependencies:** DEV-02
 
-Results: [DEV50_FRONTEND_SETUP.md](DEV50_FRONTEND_SETUP.md). Setup: [README.md](README.md). Clean install, lint/boundaries, strict type checks, 37 unit/component tests, static build, and 6 desktop/mobile production-browser tests passed. Git is configured locally; no remote, commit, push, hosted CI run, or publication is claimed. Visible in-app preview access was declined; it was not retried. Local storage and the complete shell remain DEV-51/DEV-47.
+Results: [DEV50_FRONTEND_SETUP.md](DEV50_FRONTEND_SETUP.md). Setup: [README.md](README.md). Clean install, lint/boundaries, strict type checks, 37 unit/component tests, static build, and 6 desktop/mobile production-browser tests passed. That task's report records the local verification before GitHub setup; the current repository location and workflow are in README.md. Website publication is not claimed. Visible in-app preview access was declined; it was not retried. Local storage and the complete shell remain DEV-51/DEV-47.
 
 This replaces the former backend-dependent DEV-50. Git setup moves here from deferred DEV-44. Keep the frontend portable so a later server adapter can be added without replacing the screens.
 
