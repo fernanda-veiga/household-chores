@@ -9,7 +9,7 @@ describe('frontend foundation', () => {
   it('shows an honest preview with no login or fake chore controls', () => {
     render(<MemoryRouter><App /></MemoryRouter>);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('A calmer home');
-    expect(screen.getByText(/Chore setup, scheduling, and saving are coming next/)).toBeVisible();
+    expect(screen.getByText(/Chore setup and scheduling are coming next/)).toBeVisible();
     expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/password/i)).not.toBeInTheDocument();
   });

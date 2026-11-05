@@ -57,11 +57,29 @@ h2 { font-family: var(--font-display); font-weight: 500; font-size: 27px; letter
 .skip-link { position: fixed; top: -100px; left: 15px; background: var(--color-accent); color: white; padding: 13px 20px; z-index: 10; border-radius: 6px; }
 .skip-link:focus { top: 12px; }
 .recovery-page { max-width: 650px; margin: 15vh auto; padding: 24px; }
+.local-data-page { max-width: 880px; }
+.setup-form, .household-summary, .data-tools, .review-panel { padding: 26px; margin: 28px 0; border: 1px solid var(--color-border); border-radius: 12px; background: #fdfcf8; }
+.local-data-page label { display: block; margin: 18px 0 8px; font-size: 14px; font-weight: 600; }
+.local-data-page input:not([type='checkbox']), .local-data-page select { max-width: 100%; width: 100%; padding: 12px; min-height: 44px; border: 1px solid #7e897b; border-radius: 6px; background: white; color: var(--color-text); font: inherit; }
+.local-data-page p, .history-preview { line-height: 1.8; }
+.local-data-page form .button { margin-top: 14px; }
+.action-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.button:disabled { opacity: .6; cursor: not-allowed; }
+.storage-banner, .storage-error, .review-panel { background: #f6edda; border: 1px solid #b18c48; border-radius: 10px; padding: 22px; }
+.storage-error h2 { font-size: 22px; }
+.storage-notice { color: var(--color-accent); font-weight: 600; }
+.confirmation { display: flex !important; align-items: center; gap: 12px; }
+.confirmation input { width: 24px; height: 24px; flex-shrink: 0; }
+.history-preview { padding-left: 21px; font-size: 14px; }
+.example-note { font-size: 14px; border-left: 3px solid var(--color-accent); padding-left: 14px; }
 @media (max-width: 760px) {
   .app-frame { padding: 0 24px; }
   .site-header { min-height: 92px; gap: 22px; flex-wrap: wrap; padding: 18px 0; }
   .wordmark { font-size: 22px; }
-  nav { margin-left: auto; gap: 20px; }
+  nav { margin-left: auto; gap: 16px; }
+  .site-header { column-gap: 12px; }
+  .local-data-page .household-summary .section-heading { flex-wrap: wrap; }
+  .setup-form, .household-summary, .data-tools, .review-panel { padding: 18px; }
   .local-label { display: none; }
   .welcome { grid-template-columns: 1fr; gap: 4px; padding: 38px 0 32px; }
   h1 { font-size: clamp(36px, 8vw, 51px); }

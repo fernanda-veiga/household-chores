@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import type { StorageRuntime } from '../application/storage/port';
+import { LocalDataPage } from './pages/LocalDataPage';
 
 function HomeMark() {
   return <svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="m6 15 10-9 10 9v12H6Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><path d="M13 27V17h6v10" stroke="currentColor" strokeWidth="2"/></svg>;
@@ -37,7 +39,7 @@ function Home() {
           <h1 id="page-title" tabIndex={-1}>A calmer home,<br /><span>one day at a time.</span></h1>
           <p className="welcome-description">A thoughtful place for the little things that keep a household running.</p>
           <Link className="button button-primary" to="/about">See how it works <span aria-hidden="true">↗</span></Link>
-          <p className="quiet-note">No account needed for this preview.</p>
+          <p className="quiet-note">No account needed. <Link to="/local-data">Set up local household</Link></p>
         </div>
         <div className="illustration-wrap"><HomeIllustration /><span className="illustration-caption">Room for a little less to remember.</span></div>
       </section>
@@ -48,7 +50,7 @@ function Home() {
           <article className="feature"><span className="feature-number">02</span><h3>A place for everyone</h3><p>See what belongs to each person, with everyone’s availability in mind.</p></article>
           <article className="feature"><span className="feature-number">03</span><h3>A little flexibility</h3><p>Plans that can adjust when life doesn’t follow the calendar.</p></article>
         </div>
-        <p className="preview-disclosure">This preview introduces the app. Chore setup, scheduling, and saving are coming next.</p>
+        <p className="preview-disclosure">Chore setup and scheduling are coming next. Local household storage and backups are ready.</p>
       </section>
     </>
   );
@@ -61,7 +63,7 @@ function About() {
       <h1 id="page-title" tabIndex={-1}>Your home, at your pace.</h1>
       <p className="page-lead">Our Home starts with a website you can use without setting up an account.</p>
       <div className="information-grid">
-        <article><span className="info-icon" aria-hidden="true">⌂</span><h2>First, on this device</h2><p>The first version will keep household data in this browser. Local saving and export are the next steps; they are not active in this preview.</p></article>
+        <article><span className="info-icon" aria-hidden="true">⌂</span><h2>First, on this device</h2><p>Local household saving and JSON export/restore work in this browser. The chore calendar and daily workflows are coming next.</p></article>
         <article><span className="info-icon" aria-hidden="true">↗</span><h2>Shared access comes later</h2><p>Accounts and live sharing between people or devices will be added after the local app is complete. Choosing a person will be a local preference, not a sign-in.</p></article>
         <article><span className="info-icon" aria-hidden="true">✓</span><h2>You stay in control</h2><p>Daily chore messages will be reviewed before copying or opening WhatsApp. Nothing will be sent automatically.</p></article>
       </div>
@@ -78,7 +80,7 @@ function RouteAccessibility() {
   const { pathname } = useLocation();
   const previousPath = useRef(pathname);
   useEffect(() => {
-    const title = pathname === '/' ? 'A little more together' : pathname === '/about' ? 'About local mode' : 'Page not found';
+    const title = pathname === '/' ? 'A little more together' : pathname === '/about' ? 'About local mode' : pathname === '/local-data' ? 'Your local household' : 'Page not found';
     document.title = `Our Home · ${title}`;
     if (previousPath.current !== pathname) document.getElementById('page-title')?.focus();
     previousPath.current = pathname;
@@ -86,7 +88,7 @@ function RouteAccessibility() {
   return null;
 }
 
-export function App() {
+export function App({ storage }: { storage?: StorageRuntime }) {
   return (
     <ErrorBoundary>
       <RouteAccessibility />
@@ -94,10 +96,10 @@ export function App() {
       <div className="app-frame">
         <header className="site-header">
           <Link className="wordmark" to="/" aria-label="Our Home home"><span className="logo-mark"><HomeMark /></span>Our Home<span className="wordmark-dot">.</span></Link>
-          <nav aria-label="Main navigation"><NavLink to="/" end>Home</NavLink><NavLink to="/about">About</NavLink></nav>
+          <nav aria-label="Main navigation"><NavLink to="/" end>Home</NavLink><NavLink to="/about">About</NavLink><NavLink to="/local-data">Local data</NavLink></nav>
           <span className="local-label"><span aria-hidden="true" /> Frontend preview</span>
         </header>
-        <main id="main-content" tabIndex={-1}><Routes><Route path="/" element={<Home />} /><Route path="/about" element={<About />} /><Route path="*" element={<NotFound />} /></Routes></main>
+        <main id="main-content" tabIndex={-1}><Routes><Route path="/" element={<Home />} /><Route path="/about" element={<About />} /><Route path="/local-data" element={<LocalDataPage runtime={storage} />} /><Route path="*" element={<NotFound />} /></Routes></main>
         <footer className="site-footer"><span>Made for the everyday.</span><span>A little order. A little breathing room.</span></footer>
       </div>
     </ErrorBoundary>

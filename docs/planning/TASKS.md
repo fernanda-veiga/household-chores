@@ -13,7 +13,7 @@ Build and finish a usable frontend-only website first. Add backend capabilities 
 | C — AI assistance | Reviewed language-based drafts/explanations | Server-side credentials and authorized proposals after Phase B |
 | D — Optional enhancements | Reminders, richer recurrence, pins, subtasks, reporting | Individually specified later; not frontend release gates |
 
-**Next task: DEV-51 — browser data storage, fixtures, and replaceable adapters.** DEV-50 is complete. DEV-44/DEV-45 are deferred until DEV-28 signs off the frontend release. No frontend task depends on backend installation or credentials.
+**Next task: DEV-47 — responsive local application shell and shared states.** DEV-50 and DEV-51 are complete. DEV-44/DEV-45 are deferred until DEV-28 signs off the frontend release. No frontend task depends on backend installation or credentials.
 
 The domain rules in [DOMAIN_BEHAVIOR.md](DOMAIN_BEHAVIOR.md) and layouts in [UX_DESIGN.md](UX_DESIGN.md) remain the behavior/design baseline. [PLAN.md](PLAN.md) describes the eventual shared product. [ARCHITECTURE.md](ARCHITECTURE.md) and [DATABASE_DESIGN.md](DATABASE_DESIGN.md) are retained as future backend inputs. This backlog supersedes their backend-first delivery order and server-only execution assumptions during Phase A; it does not claim those documents already describe a built frontend.
 
@@ -97,7 +97,7 @@ Completed coverage:
 
 **Status:** Done — implementation (2026-11-05) · **Priority:** P0 · **Owner:** Frontend · **Dependencies:** DEV-02
 
-Results: [DEV50_FRONTEND_SETUP.md](DEV50_FRONTEND_SETUP.md). Setup: [README.md](README.md). Clean install, lint/boundaries, strict type checks, 37 unit/component tests, static build, and 6 desktop/mobile production-browser tests passed. That task's report records the local verification before GitHub setup; the current repository location and workflow are in README.md. Website publication is not claimed. Visible in-app preview access was declined; it was not retried. Local storage and the complete shell remain DEV-51/DEV-47.
+Results: [DEV50_FRONTEND_SETUP.md](DEV50_FRONTEND_SETUP.md). Setup: [README.md](../../README.md). Clean install, lint/boundaries, strict type checks, 37 unit/component tests, static build, and 6 desktop/mobile production-browser tests passed. That task's report records the local verification before GitHub setup; the current repository location and workflow are in README.md. Website publication is not claimed. Visible in-app preview access was declined; it was not retried. Local storage and the complete shell remain DEV-51/DEV-47.
 
 This replaces the former backend-dependent DEV-50. Git setup moves here from deferred DEV-44. Keep the frontend portable so a later server adapter can be added without replacing the screens.
 
@@ -114,7 +114,7 @@ Acceptance criteria:
 
 ### DEV-51 — Implement browser data storage, fixtures, and replaceable adapters
 
-**Status:** To do · **Priority:** P0 · **Owner:** Frontend + shared logic · **Dependencies:** DEV-50
+**Status:** Done · **Priority:** P0 · **Owner:** Frontend + shared logic · **Dependencies:** DEV-50
 
 Phase A data belongs to one browser profile/origin. No login, remote persistence, authorization guarantee, or cloud synchronization is claimed.
 
@@ -128,6 +128,8 @@ Acceptance criteria:
 - Implement local operation IDs/retry handling and cross-tab revision awareness; prevent a stale tab from overwriting newer saved data.
 - Expose storage unavailable/quota/upgrade/corruption states without claiming failed writes succeeded; offer an explicitly labeled temporary-memory mode when durable storage cannot be used.
 - Provide validated versioned JSON export/restore, replacement-impact review, and explicit reset/sample-data controls. A backup is a manual snapshot, not live household synchronization; never silently overwrite existing data on restore.
+
+Results: [DEV51_BROWSER_STORAGE.md](DEV51_BROWSER_STORAGE.md). Implemented transactional IndexedDB, typed ports, explicit temporary memory, fixtures, local profile provenance, real clock injection, and reviewed backup/reset controls. Verification: 74 unit/component tests and 16 desktop/mobile browser tests, plus lint, boundaries, strict type checks, and production build. Full member/chore workflows and scheduling remain subsequent tasks.
 
 ### DEV-47 — Build the responsive local application shell and shared states
 
@@ -719,6 +721,6 @@ Acceptance criteria:
 
 ## Revision summary
 
-There are 57 tasks: four completed documentation tasks, one completed implementation task (DEV-50), and 52 To do. Phase A has 32 implementation/release tasks (one complete), Phase B has 11, Phase C has four, and Phase D has six. All original IDs remain available for existing references.
+There are 57 tasks: four completed documentation tasks, two completed implementation tasks (DEV-50 and DEV-51), and 51 To do. Phase A has 32 implementation/release tasks (two complete), Phase B has 11, Phase C has four, and Phase D has six. All original IDs remain available for existing references.
 
-Continue with DEV-51, then DEV-47. Build the complete local frontend through DEV-28. Add backend capabilities later through DEV-44–DEV-46, DEV-05/DEV-06/DEV-48, and DEV-53–DEV-57. DEV-04 stays documentation-only; DEV-45 remains the database implementation task.
+Continue with DEV-47. Build the complete local frontend through DEV-28. Add backend capabilities later through DEV-44–DEV-46, DEV-05/DEV-06/DEV-48, and DEV-53–DEV-57. DEV-04 stays documentation-only; DEV-45 remains the database implementation task.

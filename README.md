@@ -1,8 +1,11 @@
 # Our Home
 
 A frontend-only household chores app, being built in stages. DEV-50 supplies the
-working React/TypeScript foundation and preview. Chore persistence, the full app
-shell, and household workflows are subsequent tasks in [TASKS.md](TASKS.md).
+working React/TypeScript foundation. DEV-51 adds transactional browser storage,
+optional examples, and reviewed backups. The full app shell, chore workflows, and
+scheduler are subsequent tasks in [TASKS.md](docs/planning/TASKS.md).
+
+Planning documents and task reports are collected in [docs/planning](docs/planning/).
 
 ## Run locally
 
@@ -30,7 +33,7 @@ The development server serves frontend files; it is not an application backend.
 | `npm run preview` | Inspect the existing production build locally |
 | `npm run lint` | ESLint plus module/storage dependency boundaries |
 | `npm run typecheck` | Whole-project checks plus domain compilation without browser/Node globals |
-| `npm run test:unit` | Calendar-date and architecture-boundary tests |
+| `npm run test:unit` | Dates, storage contracts, migrations, and architecture tests |
 | `npm run test:components` | React navigation, honesty, focus, and recovery tests |
 | `npm test` | Both unit and component projects |
 | `npm run check` | Lint, tests, type checks, and production build |
@@ -59,10 +62,11 @@ GitHub once a remote is configured and the files are pushed.
 
 ```text
 src/domain/              Pure dates and future scheduling rules
-src/application/         Future operations and adapter contracts (DEV-51)
-src/adapters/browser/    Future browser persistence implementation (DEV-51)
+src/application/         Typed commands, validation, and replaceable storage ports
+src/adapters/browser/    IndexedDB, temporary memory, and real clock adapters
 src/ui/                  React pages, components, and CSS design tokens
-src/main.tsx             Application composition and router setup
+src/storage-runtime.ts  Storage composition and explicit temporary-mode selection
+src/main.tsx             Application and router setup
 scripts/                 Development boundary checks
 tests/                   Unit, component, and production-browser verification
 ```
@@ -70,8 +74,8 @@ tests/                   Unit, component, and production-browser verification
 Domain code cannot depend on React, browser APIs, Node, or data adapters. UI code
 cannot read IndexedDB/localStorage/sessionStorage or import adapters directly.
 The checker tests static imports, re-exports, type imports, and dynamic imports.
-The application's future composition layer will supply replaceable operations.
-This task defines the separation; it does not implement a fake storage adapter.
+The composition layer injects application operations. The persistent and temporary
+adapters share contract tests; components never open the database themselves.
 
 ## Routing and hosting
 
@@ -80,9 +84,21 @@ rules. Vite emits relative asset references so the build can also live in a
 subdirectory. The `dist/` folder is the deployment artifact; production hosting
 is DEV-28. No hosted site or backend was created by this task.
 
-The preview currently includes Home, About, a not-found route, and error recovery.
-There is no chore database or local saving yet. The screens explicitly state
-which features are coming next rather than pretending sample data is saved.
+The preview includes Home, About, Local data, a not-found route, and error recovery.
+Open **Local data** (`/#/local-data`) to create an empty household, review optional
+example data, choose a local profile, and export or restore a JSON backup. Example
+loading, restore, and reset require explicit replacement review and confirmation.
+
+Data is saved in IndexedDB for this browser profile and origin. Other browsers,
+devices, ports, and hosted origins have separate storage. Profile selection is a
+local recording preference, not authentication. When durable storage fails, the
+page offers explicit temporary memory; reload loses that temporary data. Backups
+are manual, unencrypted snapshots with a 5 MiB limit. Clearing browser data can
+remove saved records, so export backups when needed.
+
+Member/chore editing and the scheduling calendar are still future tasks. Example
+definitions are saved configuration, not a generated schedule. No messages or
+original import files are stored by this foundation.
 
 ## Git workflow
 
@@ -99,5 +115,7 @@ reviewed branch when pushing is authorized. Frontend checks run on GitHub pushes
 and pull requests; inspect their actual status before merging. Avoid committing private
 household backups, `.env.local`, auth state, or generated test/build artifacts.
 
-See [DEV50_FRONTEND_SETUP.md](DEV50_FRONTEND_SETUP.md) for implementation decisions,
+See [DEV50_FRONTEND_SETUP.md](docs/planning/DEV50_FRONTEND_SETUP.md) for implementation decisions,
 execution evidence, and the distinction between local verification and hosted CI.
+
+See [DEV51_BROWSER_STORAGE.md](docs/planning/DEV51_BROWSER_STORAGE.md) for the storage implementation, decisions, verification, and limits.

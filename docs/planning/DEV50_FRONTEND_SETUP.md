@@ -199,7 +199,7 @@ the included CI workflow becomes executable after push to a GitHub repository.
 
 ## 5. Running and reviewing the result
 
-See [README.md](README.md) for all commands. The minimal workflow is:
+See [README.md](../../README.md) for all commands. The minimal workflow is:
 
 ```bash
 npm ci

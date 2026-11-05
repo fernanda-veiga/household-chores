@@ -1,7 +1,20 @@
 # Browser adapter boundary
 
-DEV-51 implements transactional local persistence here behind application ports.
-Only this adapter layer may access IndexedDB/localStorage/sessionStorage.
-The UI receives operations through application composition rather than importing
-this adapter directly. A later cloud adapter implements the same agreed contract.
-No storage adapter or household persistence is implemented by DEV-50.
+`indexed-db.ts` persists one versioned household snapshot and operation receipts
+in IndexedDB. State and receipts commit in one read/write transaction; a save is
+acknowledged only after transaction completion. Expected revisions prevent stale
+writes. Matching operation IDs/fingerprints replay the saved result safely.
+
+BroadcastChannel carries revision hints only. Consumers reload authoritative
+state; focus/visible-page polling supplies a notification fallback. Blocked
+upgrades, unavailable storage, quota errors, future versions, and corrupt records
+are surfaced without automatic reset.
+
+`memory.ts` implements the same contract for an explicitly chosen, isolated,
+temporary tab session. It does not write over persistent data. `runtime.ts`
+provides the real household-timezone clock, random IDs, and hashing.
+
+Only adapters access browser database APIs. Application ports remain independent
+of IndexedDB and the UI receives services through the composition root. A later
+remote adapter must add server authorization and concurrency guarantees; local
+profile selection and browser checks provide neither.
